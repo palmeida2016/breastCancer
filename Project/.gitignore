@@ -1,0 +1,7 @@
+*.aux
+*.bbl
+*.blg
+*.gz
+source/data/
+source/input/
+*.ipynb_checkpoints

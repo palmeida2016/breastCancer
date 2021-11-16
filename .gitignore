@@ -127,3 +127,11 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+Project/source/data/
+Project/source/*.h5
+Project/source/*.aux
+Project/source/*.bbl
+Project/source/*.blg
+Project/source/*.gz
+Project/source/weights/

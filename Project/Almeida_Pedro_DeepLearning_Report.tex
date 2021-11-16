@@ -1,0 +1,61 @@
+\documentclass[conference]{IEEEtran}
+% \IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+
+\title{Applying ResNet and Inception Module Techniques for Skin Cancer Classification on Breast Histopathology Images Dataset with Convolutional Neural Networks\\
+}
+
+\author{\IEEEauthorblockN{1\textsuperscript{st} Pedro Almeida}
+\IEEEauthorblockA{\textit{Department of Ocean \& Mechanical Engineering} \\
+\textit{Florida Atlantic University}\\
+Boca Raton, United States \\
+palmeida2016@fau.edu}
+}
+
+\maketitle
+
+\begin{abstract}
+This document is a model and instructions for \LaTeX.
+This and the IEEEtran.cls file define the components of your paper [title, text, heads, etc.]. *CRITICAL: Do Not Use Symbols, Special Characters, Footnotes, 
+or Math in Paper Title or Abstract.
+\end{abstract}
+
+\begin{IEEEkeywords}
+component, formatting, style, styling, insert
+\end{IEEEkeywords}
+
+\section{Introduction}
+Over the past 40 years, the field of object detection in machine learning has made massive strides in classification and detection capabilities \cite{Fukushima1980}. In addition to the expected improvements stemming from larger datasets, deeper models, and more powerful machines, much of the advancement owes to new and improved network architectures and novel algorithms. The objective of this paper is to combine some of the novel techniques introduced in network architecture that widen a network without greatly increasing the computational cost of the model \cite{He2016, Szegedy2014}.
+
+\section{Related Work}
+Since the introduction of Convolutional Neural Networks (CNN), the model architecture off CNNs has remained largely static: a series of convolutional layers followed by optional normalization and pooling layers and finally one or more dense layers reducing to the output. This standard architecture and its variations have reigned dominant in accurately classifying objects in small and large datasets alike, from MNIST, CIFAR, ImageNet, MS-COCO, SVHN, and others. For larger datasets especially, the latest novel idea has been the introduction of deeper networks with dropout layers to correct for overfitting.
+
+The tradeoff for adding more layers to a network is apparent in the time to train; as the model grows in size and increases the number of weights, the backwards propagation in updating the weights takes progressively longer, thus greatly adding to the required time to train. Furthermore, although the development of newer, more powerful machines and better parallelization and multi-processing techniques can somewhat mitigate the additional computational cost, 
+
+\section{Methods}
+\subsection{Network Architecture}
+\subsection{Data Augmentation}
+\subsection{Training the Network}
+
+\section{Results}
+
+\section{Analysis and Discussion}
+
+\section{Conclusions}
+
+\section*{Acknowledgment}
+
+\bibliography{citations}
+
+\end{document}
