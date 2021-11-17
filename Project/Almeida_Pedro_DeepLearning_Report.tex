@@ -38,12 +38,18 @@ component, formatting, style, styling, insert
 \section{Introduction}
 Over the past 40 years, the field of object detection in machine learning has made massive strides in classification and detection capabilities \cite{Fukushima1980}. In addition to the expected improvements stemming from larger datasets, deeper models, and more powerful machines, much of the advancement owes to new and improved network architectures and novel algorithms. The objective of this paper is to combine some of the novel techniques introduced in network architecture that widen a network without greatly increasing the computational cost of the model \cite{He2016, Szegedy2014}.
 
+The objective of the report is to explore these novel techniques through the Breast Histopathology Dataset \cite{Mooney2017}. The dataset contains 162 whole mount slide images of a breast cancer variant called Invasive Ductal Carcinoma scanned at forty-times magnification. As of 2019, breast cancer affects 1 in 8 women during their lifetime, registering roughly 268,600 new cases every year \cite{DeSantis2019}. Invasive Ductal Carcinoma, also known as Infiltrating Ductal Carcinoma, is the most common type breast cancer, accounting for 80\% of breast cancer diagnoses \cite{Sharma2010}. As is the case for most cancers, early detection accounts for most of successful treatments of the disease; as the cancer progresses to the later stages the diagnosis becomes harder and the odds of spreading to nearby organs increase, ultimately leading to the death of the patient \cite{Milosevic2018}.
+
+Each of the 162 samples in the dataset have been partitioned to create 277,524 50x50-pixel patches of which 198,738 are IDC negative and 78,786 are IDC positive. 
+
 \section{Related Work}
 Since the introduction of Convolutional Neural Networks (CNN), the model architecture off CNNs has remained largely static: a series of convolutional layers followed by optional normalization and pooling layers and finally one or more dense layers reducing to the output. This standard architecture and its variations have reigned dominant in accurately classifying objects in small and large datasets alike, from MNIST, CIFAR, ImageNet, MS-COCO, SVHN, and others. For larger datasets especially, the latest novel idea has been the introduction of deeper networks with dropout layers to correct for overfitting.
 
 The tradeoff for adding more layers to a network is apparent in the time to train; as the model grows in size and increases the number of weights, the backwards propagation in updating the weights takes progressively longer, thus greatly adding to the required time to train. Furthermore, although the development of newer, more powerful machines and better parallelization and multi-processing techniques can somewhat mitigate the additional computational cost, 
 
 \section{Methods}
+\subsection{ResNet Layer}
+\subsection{Inception Module Layer}
 \subsection{Network Architecture}
 \subsection{Data Augmentation}
 \subsection{Training the Network}
