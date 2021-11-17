@@ -25,7 +25,7 @@ class MCDropout(Dropout):
 		return super(rate = 0.45).call(inputs, training=True)
 
 class ResnetLayer(Layer):
-	def __init__(self, filters, n_conv=5, kernel_size=3, strides=1, activation = 'relu', **kwargs):
+	def __init__(self, filters, n_conv=4, kernel_size=3, strides=1, activation = 'relu', **kwargs):
 		super().__init__(**kwargs)
 		self.filters = filters
 		self.n_conv = n_conv
@@ -140,7 +140,7 @@ class InceptionModule(Layer):
 
 # Define Model Class
 class Classifier():
-	def __init__(self, blocks = 4, filters = 32, activation = 'relu'):
+	def __init__(self, blocks = 4, filters = 8, activation = 'relu'):
 		self.input_path = r'input'
 		self.activation = activation
 
@@ -156,7 +156,7 @@ class Classifier():
 
 		self.createArchitecture(blocks, filters)
 
-	def createArchitecture(self, blocks, filters, rate = 0.5):
+	def createArchitecture(self, blocks, filters, rate = 0.4):
 		# Construct Model
 
 		# Inputs to Model
@@ -167,13 +167,12 @@ class Classifier():
 		outputs = AvgPool2D(pool_size=2,strides=2)(outputs)
 
 		# Apply All Layers until 1x1
-		for i in range(blocks):
+		for i in range(2*blocks):
 			if i % 2 == 0:
 				outputs = InceptionModule(filter_list = [int(filters / 4), filters, filters*2, int(filters/2)])(outputs)
 			else:
 				outputs = ResnetLayer(filters = filters)(outputs)
-			
-			outputs = AvgPool2D(pool_size = 2, strides = 2)(outputs)
+				outputs = AvgPool2D(pool_size = 2, strides = 2)(outputs)
 
 		# 4096 Conv Layers
 		outputs = MCDropout(rate)(outputs)
@@ -295,6 +294,6 @@ class Classifier():
 
 if __name__ == '__main__':
 	c = Classifier()
-	# c.loadWeights()
-	c.train()		
-	# c.test()
+	c.loadWeights()
+	# c.train()		
+	c.test()
