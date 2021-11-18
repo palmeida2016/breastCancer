@@ -48,16 +48,17 @@ Since the introduction of Convolutional Neural Networks (CNN), the model archite
 The tradeoff for adding more layers to a network is apparent in the time to train; as the model grows in size and increases the number of weights, the backwards propagation in updating the weights takes progressively longer, thus greatly adding to the required time to train. Furthermore, although the development of newer, more powerful machines and better parallelization and multi-processing techniques can somewhat mitigate the additional computational cost.
 \section{Methods}
 \subsection{ResNet Layer}
-The first CNN idea applied in the model architecture employs residual learning within the convolution layers. As described by He \textit{et al.} \cite{He2016}, let us consider a residual layer within a neural network defined as:
+The first CNN modification applied in the model architecture employs residual learning within the convolution layers. As described by He \textit{et al.} \cite{He2016}, let us consider a residual layer within a neural network defined as:
 
 \begin{equation}
 y = \mathcal{F} \left(x,\{W_i\}\right) + x
 \label{residual_layer_equation}
 \end{equation}
 
-In Eq. \ref{residual_layer_equation}, $x$ and $y$ are the input and output vectors of the layer respectively. The function $\mathcal{F} \left(x,\{W_i\}\right)$ represents the mapping of inputs to outputs given a set of weights $W_i$ for each of the feature maps of the inner convolutions \cite{He2016}. For the example shown in Fig. \ref{ResNet Layer Model}, the input $x$ to the layer passes through 4 convolutional layers, which together constitute $\mathcal{F}(x)$ before the concatenation with the input $x$. The final concatenation of the output of the feature maps and initial input is a element-wise addition performed channel by channel, which is then passed through an activation layer. As proposed in the original paper by He, the residual function $\mathcal{F} \left(x,\{W_i\}\right)$ describes 2-3 fully connected layers \cite{He2016}.
+In Eq. \ref{residual_layer_equation}, $x$ and $y$ are the input and output vectors of the layer respectively. The function $\mathcal{F} \left(x,\{W_i\}\right)$ represents the mapping of inputs to outputs given a set of weights $W_i$ for each of the feature maps of the inner convolutions \cite{He2016}. For the example shown in Fig. \ref{ResNet Layer Model}, the input $x$ to the layer passes through 4 convolutional layers, which together constitute $\mathcal{F}(x)$ before the concatenation with the input $x$. The final concatenation of the output of the feature maps and initial input is a element-wise addition performed channel by channel, which is then passed through an activation layer. 
 
-The proposed architecture slightly alters the core ResNet model by substituting the fully connected layers by convolutional layers followed by Rectified Linear Unit -- also known as ReLU -- activation functions.
+In the original paper by He, the residual function $\mathcal{F} \left(x,\{W_i\}\right)$ constitutes of 2-3 fully connected layers \cite{He2016}. The proposed architecture slightly alters the core ResNet model by substituting the fully connected layers by convolutional layers followed by Rectified Linear Unit -- also known as ReLU -- activation functions.
+
 \begin{figure}
 \centering
 \includegraphics[scale=0.65]{figures/ResNet_Model.png}
@@ -66,6 +67,8 @@ The proposed architecture slightly alters the core ResNet model by substituting 
 \end{figure}
 
 \subsection{Inception Module Layer}
+The second CNN modification applied in the network architecture is the use of the Inception Module \cite{Szegedy2014} designed by Szegedy et al. Unlike the ResNet Layer, the inception module challenges the lengthening of neural netwroks for better performance through optimal local spare structures.
+
 \subsection{Network Architecture}
 \subsection{Data Augmentation}
 \subsection{Training the Network}
