@@ -25,7 +25,7 @@ class MCDropout(Dropout):
 		return super(rate = 0.45).call(inputs, training=True)
 
 class ResnetLayer(Layer):
-	def __init__(self, filters, n_conv=5, kernel_size=3, strides=1, activation = 'relu', **kwargs):
+	def __init__(self, filters, n_conv=4, kernel_size=3, strides=1, activation = 'relu', **kwargs):
 		super().__init__(**kwargs)
 		self.filters = filters
 		self.n_conv = n_conv
@@ -205,14 +205,20 @@ class Classifier():
 
 		train_datagen = ImageDataGenerator(
 							preprocessing_function=preprocess_input,
+							horizontal_flip = True,
+							vertical_flip = True,
 							rescale=1./255)
 
 		validation_datagen = ImageDataGenerator(
 							preprocessing_function=preprocess_input,
+							horizontal_flip = True,
+							vertical_flip = True,
 							rescale=1./255)
 
 		test_datagen = ImageDataGenerator(
 							preprocessing_function=preprocess_input,
+							horizontal_flip = True,
+							vertical_flip = True,
 							rescale=1./255)
 
 		self.train_generator = train_datagen.flow_from_directory(
