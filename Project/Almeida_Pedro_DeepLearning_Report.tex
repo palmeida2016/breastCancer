@@ -36,11 +36,9 @@ component, formatting, style, styling, insert
 \end{IEEEkeywords}
 
 \section{Introduction}
-Over the past 40 years, the field of object detection in machine learning has made massive strides in classification and detection capabilities \cite{Fukushima1980}. In addition to the expected improvements stemming from larger datasets, deeper models, and more powerful machines, much of the advancement owes to new and improved network architectures and novel algorithms. The objective of this paper is to combine some of the novel techniques introduced in network architecture that widen a network without greatly increasing the computational cost of the model \cite{He2016, Szegedy2014}.
+Over the past 40 years \cite{Fukushima1980}, the field of object detection in machine learning has made massive strides in classification and detection capabilities. In addition to the expected improvements stemming from larger datasets, deeper models, and more powerful machines, much of the advancement owes to new and improved network architectures and novel algorithms. The objective of this paper is to combine some of the novel techniques introduced in network architecture that widen \cite{He2016, Szegedy2014} a network without greatly increasing the computational cost of the model.
 
-The objective of the report is to explore the combinations of these novel techniques through the Breast Histopathology Dataset \cite{Mooney2017}. The dataset contains 162 whole mount slide images of a breast cancer variant called Invasive Ductal Carcinoma scanned at forty-times magnification. As of 2019, breast cancer affects 1 in 8 women during their lifetime, registering roughly 268,600 new cases every year \cite{DeSantis2019}. Invasive Ductal Carcinoma, also known as Infiltrating Ductal Carcinoma, is the most common type breast cancer, accounting for 80\% of breast cancer diagnoses \cite{Sharma2010}. As is the case for most cancers, early detection accounts for most of successful treatments of the disease; as the cancer progresses to the later stages, the odds of spreading to nearby organs increases, thus furthering the risk of the death of the patient \cite{Milosevic2018}.
-
-
+The objective of the report is to explore the combinations of these novel techniques through the Breast Histopathology Dataset \cite{Mooney2017}. The dataset contains 162 whole mount slide images of a breast cancer variant called Invasive Ductal Carcinoma scanned at forty-times magnification. As of 2019, breast cancer affects 1 in 8 \cite{DeSantis2019} women during their lifetime, registering roughly 268,600 new cases every year. Invasive Ductal Carcinoma, also known as Infiltrating Ductal Carcinoma, is the most common type breast cancer, accounting for 80\% \cite{Sharma2010} of breast cancer diagnoses. As is the case for most cancers, early detection accounts for most of successful treatments of the disease; as the cancer progresses to the later stages, the odds of spreading to nearby organs increases \cite{Milosevic2018}, thus furthering the risk of the death of the patient.
 
 Each of the 162 samples in the dataset have been partitioned to create 277,524 50x50-pixel patches of which 198,738 are IDC negative and 78,786 are IDC positive. 
 
@@ -50,15 +48,16 @@ Since the introduction of Convolutional Neural Networks (CNN), the model archite
 The tradeoff for adding more layers to a network is apparent in the time to train; as the model grows in size and increases the number of weights, the backwards propagation in updating the weights takes progressively longer, thus greatly adding to the required time to train. Furthermore, although the development of newer, more powerful machines and better parallelization and multi-processing techniques can somewhat mitigate the additional computational cost.
 \section{Methods}
 \subsection{ResNet Layer}
-The first CNN idea applied in the model architecture employs residual learning within the convolution layers. As described by He \textit{et al.}, let us consider a residual layer within a neural network defined as:
+The first CNN idea applied in the model architecture employs residual learning within the convolution layers. As described by He \textit{et al.} \cite{He2016}, let us consider a residual layer within a neural network defined as:
 
 \begin{equation}
 y = \mathcal{F} \left(x,\{W_i\}\right) + x
 \label{residual_layer_equation}
 \end{equation}
 
-In Eq. \ref{residual_layer_equation}, $x$ and $y$ are the input and output vectors of the layer respectively. The function $\mathcal{F} \left(x,\{W_i\}\right)$ represents the convoluntional mapping of inputs to outputs given a set of weights $W$ \cite{He2016}. For the example shown in Fig. \ref{ResNet Layer Model}, the input $x$ to the layer passes through 4 convolutional layers, which together constitute $\mathcal{F}(x)$ before the concatenation with the input $x$.
+In Eq. \ref{residual_layer_equation}, $x$ and $y$ are the input and output vectors of the layer respectively. The function $\mathcal{F} \left(x,\{W_i\}\right)$ represents the mapping of inputs to outputs given a set of weights $W_i$ for each of the feature maps of the inner convolutions \cite{He2016}. For the example shown in Fig. \ref{ResNet Layer Model}, the input $x$ to the layer passes through 4 convolutional layers, which together constitute $\mathcal{F}(x)$ before the concatenation with the input $x$. The final concatenation of the output of the feature maps and initial input is a element-wise addition performed channel by channel, which is then passed through an activation layer. As proposed in the original paper by He, the residual function $\mathcal{F} \left(x,\{W_i\}\right)$ describes 2-3 fully connected layers \cite{He2016}.
 
+The proposed architecture slightly alters the core ResNet model by substituting the fully connected layers by convolutional layers followed by Rectified Linear Unit -- also known as ReLU -- activation functions.
 \begin{figure}
 \centering
 \includegraphics[scale=0.65]{figures/ResNet_Model.png}
