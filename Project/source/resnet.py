@@ -297,6 +297,16 @@ class Classifier():
 
 	def loadWeights(self):
 		self.model.load_weights('skin_disease.h5')
+
+	def gradCam(self):
+		# https://github.com/wawaku/grad-cam-keras/blob/master/grad-cam.py
+		pass
+
+	def getSampleDataset(self, n):
+		pass
+
+	def predict(self):
+		pass
 		
 
 if __name__ == '__main__':
