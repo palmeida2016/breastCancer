@@ -42,6 +42,8 @@ Another strategy introduced by the family of ResNet models and its variants prop
 
 The objective of the report is to explore the combination of some of these techniques \cite{Szegedy2014, He2016} through the Breast Histopathology Dataset \cite{Mooney2017}. The dataset contains 162 whole mount slide images of a breast cancer variant called Invasive Ductal Carcinoma scanned at forty-times magnification. As of 2019, breast cancer affects 1 in 8 \cite{DeSantis2019} women during their lifetime, registering roughly 268,600 new cases every year. Invasive Ductal Carcinoma, also known as Infiltrating Ductal Carcinoma, is the most common type breast cancer, accounting for 80\% \cite{Sharma2010} of breast cancer diagnoses. As is the case for most cancers, early detection accounts for most of successful treatments of the disease; as the cancer progresses to the later stages, the odds of spreading to nearby organs increases \cite{Milosevic2018}, thus furthering the risk of the death of the patient.
 
+We propose a Convolutional Neural Network architecture 
+
 \section{Related Work}
 Since the introduction of Convolutional Neural Networks (CNN), the model architecture off CNNs has remained largely static: a series of convolutional layers followed by optional normalization and pooling layers and finally one or more dense layers reducing to the output. This standard architecture and its variations have reigned dominant in accurately classifying objects in small and large datasets alike, from MNIST, CIFAR, ImageNet, MS-COCO, SVHN, and others. For larger datasets especially, the latest novel idea has been the introduction of deeper networks with dropout layers to correct for overfitting.
 
@@ -71,7 +73,12 @@ The second CNN modification applied in the network architecture is the use of th
 
 \subsection{Network Architecture}
 \subsection{Data Augmentation}
-Each of the 162 samples in the dataset have been partitioned to create 277,524 50x50-pixel patches of which 198,738 are IDC negative and 78,786 are IDC positive. 
+Each of the 162 samples in the dataset have been partitioned to create 277,524 50x50-pixel patches of which 198,738 are IDC negative and 78,786 are IDC positive. In preparation for the training cycle, tthe samples were shuffled and distributed into training, validation, and testing sets constituting 60\%, 20\%, and 20\% of the samples respectively. To account for the imbalance in negative and positive samples, the distribution executed ensures the ratio of negative to positive samples is consistent across all three datasets.
+
+% Include pics of dataset here 5x5 probs
+
+The data in each of the sections is then converted from RGB to BGR dataset for training with each color channel zero-centered. 
+
 \subsection{Training the Network}
 
 \section{Results}

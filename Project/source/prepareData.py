@@ -53,7 +53,6 @@ class Classifier():
 			shutil.copy(os.path.join(dir_name,ids,cl,img), os.path.join(self.dest_path, 'test', cl, img))
 
 
-
 	def format(self):
 		self.loadPaths()
 		self.saveImages()
