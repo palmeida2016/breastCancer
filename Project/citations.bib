@@ -55,7 +55,6 @@
    year = {2018},
 }
 
-
 @article{DeSantis2019,
    abstract = {This article is the American Cancer Society's biennial update on female breast cancer statistics in the United States, including data on incidence, mortality, survival, and screening. Over the most recent 5-year period (2012-2016), the breast cancer incidence rate increased slightly by 0.3% per year, largely because of rising rates of local stage and hormone receptor-positive disease. In contrast, the breast cancer death rate continues to decline, dropping 40% from 1989 to 2017 and translating to 375,900 breast cancer deaths averted. Notably, the pace of the decline has slowed from an annual decrease of 1.9% during 1998 through 2011 to 1.3% during 2011 through 2017, largely driven by the trend in white women. Consequently, the black-white disparity in breast cancer mortality has remained stable since 2011 after widening over the past 3 decades. Nevertheless, the death rate remains 40% higher in blacks (28.4 vs 20.3 deaths per 100,000) despite a lower incidence rate (126.7 vs 130.8); this disparity is magnified among black women aged <50 years, who have a death rate double that of whites. In the most recent 5-year period (2013-2017), the death rate declined in Hispanics (2.1% per year), blacks (1.5%), whites (1.0%), and Asians/Pacific Islanders (0.8%) but was stable in American Indians/Alaska Natives. However, by state, breast cancer mortality rates are no longer declining in Nebraska overall; in Colorado and Wisconsin in black women; and in Nebraska, Texas, and Virginia in white women. Breast cancer was the leading cause of cancer death in women (surpassing lung cancer) in four Southern and two Midwestern states among blacks and in Utah among whites during 2016-2017. Declines in breast cancer mortality could be accelerated by expanding access to high-quality prevention, early detection, and treatment services to all women.},
    author = {Carol E. DeSantis and Jiemin Ma and Mia M. Gaudet and Lisa A. Newman and Kimberly D. Miller and Ann Goding Sauer and Ahmedin Jemal and Rebecca L. Siegel},
@@ -70,6 +69,86 @@
    title = {Breast cancer statistics, 2019},
    volume = {69},
    year = {2019},
+}
+
+@article{Hu2017,
+   abstract = {The central building block of convolutional neural networks (CNNs) is the convolution operator, which enables networks to construct informative features by fusing both spatial and channel-wise information within local receptive fields at each layer. A broad range of prior research has investigated the spatial component of this relationship, seeking to strengthen the representational power of a CNN by enhancing the quality of spatial encodings throughout its feature hierarchy. In this work, we focus instead on the channel relationship and propose a novel architectural unit, which we term the "Squeeze-and-Excitation" (SE) block, that adaptively recalibrates channel-wise feature responses by explicitly modelling interdependencies between channels. We show that these blocks can be stacked together to form SENet architectures that generalise extremely effectively across different datasets. We further demonstrate that SE blocks bring significant improvements in performance for existing state-of-the-art CNNs at slight additional computational cost. Squeeze-and-Excitation Networks formed the foundation of our ILSVRC 2017 classification submission which won first place and reduced the top-5 error to 2.251%, surpassing the winning entry of 2016 by a relative improvement of ~25%. Models and code are available at https://github.com/hujie-frank/SENet.},
+   author = {Jie Hu and Li Shen and Samuel Albanie and Gang Sun and Enhua Wu},
+   month = {9},
+   title = {Squeeze-and-Excitation Networks},
+   url = {http://arxiv.org/abs/1709.01507},
+   year = {2017},
+}
+
+@article{Zhao2021,
+   abstract = {In this paper, we extend the classic MaxOut strategy, originally designed for Multiple Layer Preceptors (MLPs), into COnvolutional MaxOut (COMO) - a new strategy making deep convolutional neural networks wider with parameter efficiency. Compared to the existing solutions, such as ResNeXt for ResNet or Inception for VGG-alikes, COMO works well on both linear architectures and the ones with skipped connections and residual blocks. More specifically, COMO adopts a novel split-transform-merge paradigm that extends the layers with spatial resolution reduction into multiple parallel splits. For the layer with COMO, each split passes the input feature maps through a 4D convolution operator with independent batch normalization operators for transformation, then merge into the aggregated output of the original sizes through max-pooling. Such a strategy is expected to tackle the potential classification accuracy degradation due to the spatial resolution reduction, by incorporating the multiple splits and max-pooling-based feature selection. Our experiment using a wide range of deep architectures shows that COMO can significantly improve the classification accuracy of ResNet/VGG-alike networks based on a large number of benchmark datasets. COMO further outperforms the existing solutions, e.g., Inceptions, ResNeXts, SE-ResNet, and Xception, that make networks wider, and it dominates in the comparison of accuracy versus parameter sizes.},
+   author = {Baoxin Zhao and Haoyi Xiong and Jiang Bian and Zhishan Guo and Cheng Zhong Xu and Dejing Dou},
+   doi = {10.1109/TMM.2020.3002614},
+   issn = {19410077},
+   journal = {IEEE Transactions on Multimedia},
+   keywords = {Artificial neural networks,computational and artificial intelligence,feedforward neural networks,multilayer perceptrons,neural networks},
+   pages = {1722-1730},
+   publisher = {Institute of Electrical and Electronics Engineers Inc.},
+   title = {COMO: Efficient Deep Neural Networks Expansion with COnvolutional MaxOut},
+   volume = {23},
+   year = {2021},
+}
+
+@report{Xie2017,
+   abstract = {We present a simple, highly modularized network architecture for image classification. Our network is constructed by repeating a building block that aggregates a set of transformations with the same topology. Our simple design results in a homogeneous, multi-branch architecture that has only a few hyper-parameters to set. This strategy exposes a new dimension, which we call "cardinality" (the size of the set of transformations), as an essential factor in addition to the dimensions of depth and width. On the ImageNet-1K dataset, we empirically show that even under the restricted condition of maintaining complexity, increasing cardinality is able to improve classification accuracy. Moreover, increasing cardinality is more effective than going deeper or wider when we increase the capacity. Our models, named ResNeXt, are the foundations of our entry to the ILSVRC 2016 classification task in which we secured 2nd place. We further investigate ResNeXt on an ImageNet-5K set and the COCO detection set, also showing better results than its ResNet counterpart. The code and models are publicly available online 1 .},
+   author = {Saining Xie and Ross Girshick and Piotr Dollár and Zhuowen Tu and Kaiming He and Uc San Diego},
+   title = {Aggregated Residual Transformations for Deep Neural Networks},
+   url = {https://github.com/facebookresearch/ResNeXt},
+}
+
+@article{Simonyan2014,
+   abstract = {In this work we investigate the effect of the convolutional network depth on its accuracy in the large-scale image recognition setting. Our main contribution is a thorough evaluation of networks of increasing depth using an architecture with very small (3x3) convolution filters, which shows that a significant improvement on the prior-art configurations can be achieved by pushing the depth to 16-19 weight layers. These findings were the basis of our ImageNet Challenge 2014 submission, where our team secured the first and the second places in the localisation and classification tracks respectively. We also show that our representations generalise well to other datasets, where they achieve state-of-the-art results. We have made our two best-performing ConvNet models publicly available to facilitate further research on the use of deep visual representations in computer vision.},
+   author = {Karen Simonyan and Andrew Zisserman},
+   month = {9},
+   title = {Very Deep Convolutional Networks for Large-Scale Image Recognition},
+   url = {http://arxiv.org/abs/1409.1556},
+   year = {2014},
+}
+
+@article{huang2019convolutional,
+ title={Convolutional Networks with Dense Connectivity},
+ author={Huang, Gao and Liu, Zhuang and Pleiss, Geoff and Van Der Maaten, Laurens and Weinberger, Kilian},
+ journal={IEEE Transactions on Pattern Analysis and Machine Intelligence},
+ year={2019}
+ }
+ 
+ @article{Szegedy2015,
+   abstract = {Convolutional networks are at the core of most state-of-the-art computer vision solutions for a wide variety of tasks. Since 2014 very deep convolutional networks started to become mainstream, yielding substantial gains in various benchmarks. Although increased model size and computational cost tend to translate to immediate quality gains for most tasks (as long as enough labeled data is provided for training), computational efficiency and low parameter count are still enabling factors for various use cases such as mobile vision and big-data scenarios. Here we explore ways to scale up networks in ways that aim at utilizing the added computation as efficiently as possible by suitably factorized convolutions and aggressive regularization. We benchmark our methods on the ILSVRC 2012 classification challenge validation set demonstrate substantial gains over the state of the art: 21.2% top-1 and 5.6% top-5 error for single frame evaluation using a network with a computational cost of 5 billion multiply-adds per inference and with using less than 25 million parameters. With an ensemble of 4 models and multi-crop evaluation, we report 3.5% top-5 error on the validation set (3.6% error on the test set) and 17.3% top-1 error on the validation set.},
+   author = {Christian Szegedy and Vincent Vanhoucke and Sergey Ioffe and Jonathon Shlens and Zbigniew Wojna},
+   month = {12},
+   title = {Rethinking the Inception Architecture for Computer Vision},
+   url = {http://arxiv.org/abs/1512.00567},
+   year = {2015},
+}
+
+@report{Szegedy2016,
+   abstract = {Very deep convolutional networks have been central to the largest advances in image recognition performance in recent years. One example is the Inception architecture that has been shown to achieve very good performance at relatively low computational cost. Recently, the introduction of residual connections in conjunction with a more traditional architecture has yielded state-of-the-art performance in the 2015 ILSVRC challenge; its performance was similar to the lat-est generation Inception-v3 network. This raises the question: Are there any benefits to combining Inception architec-tures with residual connections? Here we give clear empirical evidence that training with residual connections accelerates the training of Inception networks significantly. There is also some evidence of residual Inception networks out-performing similarly expensive Inception networks without residual connections by a thin margin. We also present several new streamlined architectures for both residual and non-residual Inception networks. These variations improve the single-frame recognition performance on the ILSVRC 2012 classification task significantly. We further demonstrate how proper activation scaling stabilizes the training of very wide residual Inception networks. With an ensemble of three residual and one Inception-v4 networks, we achieve 3.08% top-5 error on the test set of the ImageNet classification (CLS) challenge .},
+   author = {Christian Szegedy and Sergey Ioffe and Vincent Vanhoucke and Alexander A Alemi},
+   keywords = {Vision},
+   title = {Inception-v4, Inception-ResNet and the Impact of Residual Connections on Learning},
+   url = {www.aaai.org},
+}
+
+
+@article{Huang2016,
+   abstract = {Recent work has shown that convolutional networks can be substantially deeper, more accurate, and efficient to train if they contain shorter connections between layers close to the input and those close to the output. In this paper, we embrace this observation and introduce the Dense Convolutional Network (DenseNet), which connects each layer to every other layer in a feed-forward fashion. Whereas traditional convolutional networks with L layers have L connections - one between each layer and its subsequent layer - our network has L(L+1)/2 direct connections. For each layer, the feature-maps of all preceding layers are used as inputs, and its own feature-maps are used as inputs into all subsequent layers. DenseNets have several compelling advantages: they alleviate the vanishing-gradient problem, strengthen feature propagation, encourage feature reuse, and substantially reduce the number of parameters. We evaluate our proposed architecture on four highly competitive object recognition benchmark tasks (CIFAR-10, CIFAR-100, SVHN, and ImageNet). DenseNets obtain significant improvements over the state-of-the-art on most of them, whilst requiring less computation to achieve high performance. Code and pre-trained models are available at https://github.com/liuzhuang13/DenseNet .},
+   author = {Gao Huang and Zhuang Liu and Laurens van der Maaten and Kilian Q. Weinberger},
+   month = {8},
+   title = {Densely Connected Convolutional Networks},
+   url = {http://arxiv.org/abs/1608.06993},
+   year = {2016},
+}
+
+@report{Krizhevsky2012,
+   abstract = {We trained a large, deep convolutional neural network to classify the 1.2 million high-resolution images in the ImageNet LSVRC-2010 contest into the 1000 different classes. On the test data, we achieved top-1 and top-5 error rates of 37.5% and 17.0% which is considerably better than the previous state-of-the-art. The neural network, which has 60 million parameters and 650,000 neurons, consists of five convolutional layers, some of which are followed by max-pooling layers, and three fully-connected layers with a final 1000-way softmax. To make training faster, we used non-saturating neurons and a very efficient GPU implementation of the convolution operation. To reduce overfitting in the fully-connected layers we employed a recently-developed regularization method called "dropout" that proved to be very effective. We also entered a variant of this model in the ILSVRC-2012 competition and achieved a winning top-5 test error rate of 15.3%, compared to 26.2% achieved by the second-best entry.},
+   author = {Alex Krizhevsky and Ilya Sutskever and Geoffrey E Hinton},
+   title = {ImageNet Classification with Deep Convolutional Neural Networks},
+   url = {http://code.google.com/p/cuda-convnet/},
 }
 
 
