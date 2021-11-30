@@ -5,6 +5,10 @@ import keras.backend as K
 import numpy as np, cv2, os 
 from keras.models import Model
 
+from IPython.display import Image, display
+import matplotlib.pyplot as plt
+import matplotlib.cm as cm
+
 class gradCam():
 	def __init__(self, model):
 		self.img_width = 50
@@ -12,12 +16,16 @@ class gradCam():
 
 		self.model = model
 
+
+
+
 	def loadImage(self, path):
 		img = image.load_image(path, target_size(self.img_length, self.img_width))
 		arr = image.img_to_array(img)
 		return np.expand_dims(arr, axis = 0)
 
-	def getHeatMap(self, )
+	def getHeatMap(self):
+		pass
 
 if __name__ == '__main__':
 	g = gradCam('a')

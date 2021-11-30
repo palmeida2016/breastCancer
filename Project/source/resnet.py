@@ -36,9 +36,9 @@ class ResnetLayer(Layer):
 
 		self.layers = []
 
-		for _ in range(n_conv):
+		for i in range(n_conv):
 			self.layers.append(Conv2D(
-				filters = filters,
+				filters = int(filters*(i+1)),
 				kernel_size = kernel_size,
 				strides = strides,
 				padding = 'same'
@@ -195,9 +195,6 @@ class Classifier():
 
 		print(self.model.summary())
 
-		self.initCallbacks()
-		self.initDataGenerator()
-
 	def initDataGenerator(self):
 		train_data_dir = 'data/train'
 		validation_data_dir = 'data/valid'
@@ -274,6 +271,9 @@ class Classifier():
 		self.callbacks = [checkpoint, earlystop, reduce_lr, tensor_board]
 
 	def train(self):
+		self.initCallbacks()
+		self.initDataGenerator()
+
 		self.history = self.model.fit(
 			self.train_generator,
 			steps_per_epoch=self.nb_train_samples//self.batch_size,
@@ -283,6 +283,7 @@ class Classifier():
 			validation_steps=self.nb_validation_samples//self.batch_size)
 
 	def test(self):
+		self.initDataGenerator()
 		loss = []
 		accs = []
 		for _ in range(10):
