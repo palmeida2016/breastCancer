@@ -1,14 +1,14 @@
 
 # Import Keras Layers
-from keras.preprocessing.image import ImageDataGenerator
-from keras.models import Sequential, Model
-from keras.layers import Layer, Concatenate, Dense, Dropout, Activation, Flatten, BatchNormalization, Input
-from keras.layers import Conv2D, MaxPooling2D, AvgPool2D
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.models import Sequential, Model
+from tensorflow.keras.layers import Layer, Concatenate, Dense, Dropout, Activation, Flatten, BatchNormalization, Input
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, AvgPool2D
 from keras.layers.advanced_activations import LeakyReLU
-from keras.activations import relu
-from keras.optimizers import RMSprop, SGD, Adam
-from keras.callbacks import ModelCheckpoint, EarlyStopping, ReduceLROnPlateau, TensorBoard, CSVLogger
-from keras.applications.vgg16 import preprocess_input
+from tensorflow.keras.activations import relu
+from tensorflow.keras.optimizers import RMSprop, SGD, Adam
+from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping, ReduceLROnPlateau, TensorBoard, CSVLogger
+from tensorflow.keras.applications.vgg16 import preprocess_input
 import keras_preprocessing.image as IMAGE
 
 
@@ -311,6 +311,6 @@ class Classifier():
 
 if __name__ == '__main__':
 	c = Classifier()
-	# c.loadWeights()
-	c.train()		
-	# c.test()
+	c.loadWeights()
+	# c.train()		
+	c.test()
