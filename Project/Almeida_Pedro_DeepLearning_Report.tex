@@ -57,14 +57,14 @@ y = \mathcal{F} \left(x,\{W_i\}\right) + x
 \label{residual_layer_equation}
 \end{equation}
 
-In Eq. \ref{residual_layer_equation}, $x$ and $y$ are the input and output vectors of the layer respectively. The function $\mathcal{F} \left(x,\{W_i\}\right)$ represents the mapping of inputs to outputs given a set of weights $W_i$ for each of the feature maps of the inner convolutions \cite{He2016}. For the example shown in Fig. \ref{ResNet Layer Model}, the input $x$ to the layer passes through 4 convolutional layers, which together constitute $\mathcal{F}(x)$ before the concatenation with the input $x$. The final concatenation of the output of the feature maps and initial input is a element-wise addition performed channel by channel, which is then passed through an activation layer. 
+In Eq. \ref{residual_layer_equation}, $x$ and $y$ are the input and output vectors of the layer respectively. The function $\mathcal{F} \left(x,\{W_i\}\right)$ represents the mapping of inputs to outputs given a set of weights $W_i$ for each of the feature maps of the inner convolutions \cite{He2016}. For the example shown in Fig. \ref{ResNet_Layer_Model}, the input $x$ to the layer passes through 4 convolutional layers, which together constitute $\mathcal{F}(x)$ before the concatenation with the input $x$. The final concatenation of the output of the feature maps and initial input is a element-wise addition performed channel by channel, which is then passed through an activation layer. 
 
 In the original paper by He, the residual function $\mathcal{F} \left(x,\{W_i\}\right)$ constitutes of 2-3 fully connected layers \cite{He2016}. The proposed architecture slightly alters the core ResNet model by substituting the fully connected layers by convolutional layers followed by Rectified Linear Unit -- also known as ReLU -- activation functions.
 
 \begin{figure}
 \centering
-\includegraphics[scale=0.65]{figures/ResNet_Model.png}
-\label{ResNet Layer Model}
+\includegraphics[width=0.3\textwidth]{figures/ResNet_Model.png}
+\label{ResNet_Layer_Model}
 \caption{Model of ResNet Layer with 4 Convolutions followed by concatenation.}
 \end{figure}
 
@@ -75,7 +75,12 @@ The second CNN modification applied in the network architecture is the use of th
 \subsection{Data Augmentation}
 Each of the 162 samples in the dataset have been partitioned to create 277,524 50x50-pixel patches of which 198,738 are IDC negative and 78,786 are IDC positive. In preparation for the training cycle, tthe samples were shuffled and distributed into training, validation, and testing sets constituting 60\%, 20\%, and 20\% of the samples respectively. To account for the imbalance in negative and positive samples, the distribution executed ensures the ratio of negative to positive samples is consistent across all three datasets.
 
-% Include pics of dataset here 5x5 probs
+\begin{figure}
+\centering
+\includegraphics[width=0.4\textwidth]{figures/dataset_example.png}
+\label{dataset_example}
+\caption{Example of partitioned images found in dataset.}
+\end{figure}
 
 The data in each of the sections is then converted from RGB to BGR dataset for training with each color channel zero-centered. 
 

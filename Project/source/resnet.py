@@ -13,6 +13,8 @@ import keras_preprocessing.image as IMAGE
 
 
 #Import Basic Libraries
+import matplotlib.pyplot as plt
+import matplotlib.image as image
 import random
 import os
 from PIL import Image
@@ -304,7 +306,25 @@ class Classifier():
 		pass
 
 	def getSampleDataset(self, n):
-		pass
+		self.input_path = r'data'
+		paths = [(self.input_path, x, i, img) for x in os.listdir(self.input_path) for i in os.listdir(os.path.join(self.input_path,x)) for img in os.listdir(os.path.join(self.input_path, x, i))]
+
+		random.shuffle(paths)
+
+		paths = paths[0:n**2]
+
+		for i in range(len(paths)):
+			path = os.path.join(*paths[i])
+
+
+			img = image.imread(path)
+			plt.subplot(n,n,i+1)
+			plt.imshow(img)
+			plt.title(f'Class = {paths[i][2]}')
+
+		plt.show()
+
+
 
 	def predict(self):
 		pass
@@ -312,6 +332,7 @@ class Classifier():
 
 if __name__ == '__main__':
 	c = Classifier()
+	# c.getSampleDataset(3)
 	# c.loadWeights()
-	c.train()		
+	# c.train()		
 	# c.test()
