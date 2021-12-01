@@ -38,7 +38,7 @@ class ResnetLayer(Layer):
 
 		for i in range(n_conv):
 			self.layers.append(Conv2D(
-				filters = int(filters*(i+1)),
+				filters = int(filters*(2**i)),
 				kernel_size = kernel_size,
 				strides = strides,
 				padding = 'same'
@@ -312,6 +312,6 @@ class Classifier():
 
 if __name__ == '__main__':
 	c = Classifier()
-	c.loadWeights()
-	# c.train()		
-	c.test()
+	# c.loadWeights()
+	c.train()		
+	# c.test()

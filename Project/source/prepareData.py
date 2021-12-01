@@ -13,8 +13,6 @@ import pandas as pd
 import os
 import itertools
 from PIL import Image
-import cv2
-import glob
 import time
 from tqdm import tqdm
 import shutil
@@ -33,28 +31,45 @@ class Classifier():
 	def loadPaths(self):
 		print('Loading input paths')
 		self.paths = [(self.input_path, x, i, img) for x in os.listdir(self.input_path) for i in os.listdir(os.path.join(self.input_path,x)) for img in os.listdir(os.path.join(self.input_path, x, i))]
-		print(f'Found {len(self.paths)} images.')
+
+		self.zeros = [x for x in self.paths if x[2] == '0']
+		self.ones = [x for x in self.paths if x[2] == '1']
 
 	def saveImages(self):
-		random.shuffle(self.paths)
+		random.shuffle(self.zeros)
+		random.shuffle(self.ones)
 
-		train, valid, test = np.split(self.paths, [int(.6 * len(self.paths)), int(.8 * len(self.paths))])
+		train0, valid0, test0 = np.split(self.zeros, [int(.6 * len(self.zeros)), int(.8 * len(self.zeros))])
+		train1, valid1, test1 = np.split(self.ones, [int(.6 * len(self.ones)), int(.8 * len(self.ones))])
 
-		for i in tqdm(train):
+		for i in tqdm(train0):
 			dir_name, ids, cl, img = i
 			shutil.copy(os.path.join(dir_name,ids,cl,img), os.path.join(self.dest_path, 'train', cl, img))
 
-		for i in tqdm(valid):
+		for i in tqdm(train1):
+			dir_name, ids, cl, img = i
+			shutil.copy(os.path.join(dir_name,ids,cl,img), os.path.join(self.dest_path, 'train', cl, img))
+
+		for i in tqdm(valid0):
+			dir_name, ids, cl, img = i
+			shutil.copy(os.path.join(dir_name,ids,cl,img), os.path.join(self.dest_path, 'valid', cl, img))
+
+		for i in tqdm(valid1):
 			dir_name, ids, cl, img = i
 			shutil.copy(os.path.join(dir_name,ids,cl,img), os.path.join(self.dest_path, 'valid', cl, img))
 			
-		for i in tqdm(test):
+		for i in tqdm(test0):
+			dir_name, ids, cl, img = i
+			shutil.copy(os.path.join(dir_name,ids,cl,img), os.path.join(self.dest_path, 'test', cl, img))
+
+		for i in tqdm(test1):
 			dir_name, ids, cl, img = i
 			shutil.copy(os.path.join(dir_name,ids,cl,img), os.path.join(self.dest_path, 'test', cl, img))
 
 
 	def format(self):
 		self.loadPaths()
+
 		self.saveImages()
 
 if __name__ == '__main__':
