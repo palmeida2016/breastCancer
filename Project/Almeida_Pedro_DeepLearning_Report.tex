@@ -57,7 +57,7 @@ y = \mathcal{F} \left(x,\{W_i\}\right) + x
 \label{residual_layer_equation}
 \end{equation}
 
-In Eq. \ref{residual_layer_equation}, $x$ and $y$ are the input and output vectors of the layer respectively. The function $\mathcal{F} \left(x,\{W_i\}\right)$ represents the mapping of inputs to outputs given a set of weights $W_i$ for each of the feature maps of the inner convolutions \cite{He2016}. For the example shown in Fig. \ref{ResNet_Layer_Model}, the input $x$ to the layer passes through 4 convolutional layers, which together constitute $\mathcal{F}(x)$ before the concatenation with the input $x$. The final concatenation of the output of the feature maps and initial input is a element-wise addition performed channel by channel, which is then passed through an activation layer. 
+In Eq. \ref{residual_layer_equation}, $x$ and $y$ are the input and output vectors of the layer respectively. The function $\mathcal{F} \left(x,\{W_i\}\right)$ represents the mapping of inputs to outputs given a set of weights $W_i$ for each of the feature maps of the inner convolutions \cite{He2016}. For the example shown in Fig.~\ref{ResNet_Layer_Model}, the input $x$ to the layer passes through 4 convolutional layers, which together constitute $\mathcal{F}(x)$ before the concatenation with the input $x$. The final concatenation of the output of the feature maps and initial input is a element-wise addition performed channel by channel, which is then passed through an activation layer. 
 
 In the original paper by He, the residual function $\mathcal{F} \left(x,\{W_i\}\right)$ constitutes of 2-3 fully connected layers \cite{He2016}. The proposed architecture slightly alters the core ResNet model by substituting the fully connected layers by convolutional layers followed by Rectified Linear Unit -- also known as ReLU -- activation functions.
 
@@ -69,11 +69,15 @@ In the original paper by He, the residual function $\mathcal{F} \left(x,\{W_i\}\
 \end{figure}
 
 \subsection{Inception Module Layer}
-The second CNN modification applied in the network architecture is the use of the Inception Module \cite{Szegedy2014} designed by Szegedy et al. Unlike the ResNet Layer, the inception module challenges the lengthening of neural netwroks for better performance through optimal local spare structures.
+The second CNN modification applied in the network architecture is the use of the Inception Module \cite{Szegedy2014} designed by Szegedy et al. Unlike the ResNet Layer, the inception module bypasses the deepening of neural networks for better performance through optimal local sparse structures. The structure of the module is founded on the parallelization of inputs into paths with convolutional layers of different kernel sizes.
+
+In earlier\footnote{Earlier -- Refers to layers closer to the input image.} layers, one can expect the output of convolutional filters to concentrate in local regions, which could be covered by a layer of 1x1 convolutions in the next layer. However, over larger patches, the outputs of the convolutions will lead to fewer, more spread out clusters that cannot be easily covered by convoultuions. As such, in order to avoid the patch-alignment issues, Szegedy et al. proposes restricting the kernel size to 1$\times$1, 3$\times$3, and 5$\times$5. The final addition to the inception module is the addition of 1$\times$1 convolutions before the larger kernel size convolutional layers. The reason behind the choice is that, especially in the originally proposed architecture where inception modules are stacked to create the network, the numbre of 5$\times$5 convolutions can be prohibitely expensive. As such, the merging of output layers in the module would inevitably lead to exponential growth, thus adding immense computational complexity to the model. The proposed 1$\times$1 convolutions before the 3$\times$3 and 5$\times$5 would compute the reductions, thus preveting that growth.
+
+
 
 \subsection{Network Architecture}
 \subsection{Data Augmentation}
-Each of the 162 samples in the dataset have been partitioned to create 277,524 50x50-pixel patches of which 198,738 are IDC negative and 78,786 are IDC positive. In preparation for the training cycle, tthe samples were shuffled and distributed into training, validation, and testing sets constituting 60\%, 20\%, and 20\% of the samples respectively. To account for the imbalance in negative and positive samples, the distribution executed ensures the ratio of negative to positive samples is consistent across all three datasets.
+Each of the 162 samples in the dataset have been partitioned to create 277,524 50x50-pixel patches, of which 198,738 are IDC negative and 78,786 are IDC positive. In preparation for the training cycle, the samples were shuffled and distributed into training, validation, and testing sets constituting 60\%, 20\%, and 20\% of the samples respectively. To account for the imbalance in negative and positive samples, the distribution executed ensures the ratio of negative to positive samples is consistent across all three datasets.
 
 \begin{figure}
 \centering
@@ -82,7 +86,8 @@ Each of the 162 samples in the dataset have been partitioned to create 277,524 5
 \caption{Example of partitioned images found in dataset.}
 \end{figure}
 
-The data in each of the sections is then converted from RGB to BGR dataset for training with each color channel zero-centered. 
+
+The images in each of the sections is then converted from RGB to BGR for training with each color channel zero-centered. Since the spatial orientation and location of the features in the image is not relevant to the classification, the data loader for the model will randomly shuffle the images and choose wether to reflect the image horizontally or vertically for each of the epochs, thus providing more variation to the dataset and hopefully reducing overfitting.
 
 \subsection{Training the Network}
 
