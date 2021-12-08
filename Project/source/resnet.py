@@ -222,21 +222,21 @@ class Classifier():
 
 		self.train_generator = train_datagen.flow_from_directory(
 							train_data_dir,
-							color_mode='rgb',
+							color_mode='bgr',
 							target_size=(self.img_rows,self.img_cols),
 							batch_size=self.batch_size,
 							shuffle=True)
 
 		self.validation_generator = validation_datagen.flow_from_directory(
 							validation_data_dir,
-							color_mode='rgb',
+							color_mode='bgr',
 							target_size=(self.img_rows,self.img_cols),
 							batch_size=self.batch_size,
 							shuffle=True)
 
 		self.test_generator = test_datagen.flow_from_directory(
 							test_data_dir,
-							color_mode='rgb',
+							color_mode='bgr',
 							target_size=(self.img_rows,self.img_cols),
 							batch_size=self.batch_size,
 							shuffle=True)	

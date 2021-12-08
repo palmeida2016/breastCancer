@@ -53,27 +53,34 @@ The tradeoff for adding more layers to a network is apparent in the time to trai
 The first CNN modification applied in the model architecture employs residual learning within the convolution layers. As described by He \textit{et al.} \cite{He2016}, let us consider a residual layer within a neural network defined as:
 
 \begin{equation}
-y = \mathcal{F} \left(x,\{W_i\}\right) + x
+y = \mathcal{F} \left(x_i,\{W_i\}\right) + x
 \label{residual_layer_equation}
 \end{equation}
 
-In Eq. \ref{residual_layer_equation}, $x$ and $y$ are the input and output vectors of the layer respectively. The function $\mathcal{F} \left(x,\{W_i\}\right)$ represents the mapping of inputs to outputs given a set of weights $W_i$ for each of the feature maps of the inner convolutions \cite{He2016}. For the example shown in Fig.~\ref{ResNet_Layer_Model}, the input $x$ to the layer passes through 4 convolutional layers, which together constitute $\mathcal{F}(x)$ before the concatenation with the input $x$. The final concatenation of the output of the feature maps and initial input is a element-wise addition performed channel by channel, which is then passed through an activation layer. 
+In Eq. \ref{residual_layer_equation}, $x$ and $y$ are the input and output vectors of the layer respectively. The function $\mathcal{F} \left(x_i,\{W_i\}\right)$ represents the mapping of inputs to outputs given a set of weights $W_i$ for each of the feature maps of the inner convolutions \cite{He2016}. For the example shown in Fig.~\ref{ResNet_Layer_Model}, the input $x$ to the layer passes through 4 convolutional layers, which together constitute $\mathcal{F}(x)$ before the concatenation with the input $x$. The final concatenation of the output of the feature maps and initial input is a element-wise addition performed channel by channel, which is then passed through an activation layer. In the original paper by He, the residual function $\mathcal{F} \left(x_i,\{W_i\}\right)$ constitutes of 2-3 fully connected layers \cite{He2016}. The proposed architecture slightly alters the core ResNet model by substituting the fully connected layers by convolutional layers followed by Rectified Linear Unit -- also known as ReLU -- activation functions.
 
-In the original paper by He, the residual function $\mathcal{F} \left(x,\{W_i\}\right)$ constitutes of 2-3 fully connected layers \cite{He2016}. The proposed architecture slightly alters the core ResNet model by substituting the fully connected layers by convolutional layers followed by Rectified Linear Unit -- also known as ReLU -- activation functions.
+The proposed architecture implements the ResNet layers as proposed by He \emph{et al.} with an exponentially increasing number of filters in subsequent layers (32, 64, 128, 256). Each of the convolutions is followed by ReLU activation units.
 
 \begin{figure}
 \centering
 \includegraphics[width=0.3\textwidth]{figures/ResNet_Model.png}
 \label{ResNet_Layer_Model}
-\caption{Model of ResNet Layer with 4 Convolutions followed by concatenation.}
+\caption{Model of ResNet Layer with 4 Convolutions.}
 \end{figure}
 
 \subsection{Inception Module Layer}
-The second CNN modification applied in the network architecture is the use of the Inception Module \cite{Szegedy2014} designed by Szegedy et al. Unlike the ResNet Layer, the inception module bypasses the deepening of neural networks for better performance through optimal local sparse structures. The structure of the module is founded on the parallelization of inputs into paths with convolutional layers of different kernel sizes.
+The second CNN modification applied in the network architecture is the use of the Inception Module \cite{Szegedy2014} designed by Szegedy \emph{et al.} Unlike the ResNet Layer, the inception module bypasses the deepening of neural networks for better performance through optimal local sparse structures. The structure of the module is founded on the parallelization of inputs into paths with convolutional layers of different kernel sizes.
 
-In earlier\footnote{Earlier -- Refers to layers closer to the input image.} layers, one can expect the output of convolutional filters to concentrate in local regions, which could be covered by a layer of 1x1 convolutions in the next layer. However, over larger patches, the outputs of the convolutions will lead to fewer, more spread out clusters that cannot be easily covered by convoultuions. As such, in order to avoid the patch-alignment issues, Szegedy et al. proposes restricting the kernel size to 1$\times$1, 3$\times$3, and 5$\times$5. The final addition to the inception module is the addition of 1$\times$1 convolutions before the larger kernel size convolutional layers. The reason behind the choice is that, especially in the originally proposed architecture where inception modules are stacked to create the network, the numbre of 5$\times$5 convolutions can be prohibitely expensive. As such, the merging of output layers in the module would inevitably lead to exponential growth, thus adding immense computational complexity to the model. The proposed 1$\times$1 convolutions before the 3$\times$3 and 5$\times$5 would compute the reductions, thus preveting that growth.
+In earlier\footnote{Earlier -- Refers to layers closer to the input image.} layers, one can expect the output of convolutional filters to concentrate in local regions, which could be covered by a layer of 1x1 convolutions in the next layer. However, over larger patches, the outputs of the convolutions will lead to fewer, more spread out clusters that cannot be easily covered by convoultuions. As such, in order to avoid the patch-alignment issues, Szegedy \emph{et al.} proposes restricting the kernel size to 1$\times$1, 3$\times$3, and 5$\times$5. The final addition to the inception module is the addition of 1$\times$1 convolutions before the larger kernel size convolutional layers. The reason behind the choice is that, especially in the originally proposed architecture where inception modules are stacked to create the network, the numbre of 5$\times$5 convolutions can be prohibitely expensive. As such, the merging of output layers in the module would inevitably lead to exponential growth, thus adding immense computational complexity to the model. The proposed 1$\times$1 convolutions before the 3$\times$3 and 5$\times$5 would compute the reductions, thus preveting that growth. 
 
+\begin{figure}
+\centering
+\includegraphics[width=0.4\textwidth]{figures/Inception_Model.png}
+\label{Inception_Model}
+\caption{Model of Inception Layer with 4 parallel paths.}
+\end{figure}
 
+The proposed architecture implements the Inception Module layers as proposed by Szegedy {et al.} with 8, 32, 64, and 16 filters as shown in Fig. \ref{Inception_Model}. 
 
 \subsection{Network Architecture}
 \subsection{Data Augmentation}
