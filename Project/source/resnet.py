@@ -203,40 +203,37 @@ class Classifier():
 		test_data_dir = 'data/test'
 
 		train_datagen = ImageDataGenerator(
-							preprocessing_function=preprocess_input,
 							horizontal_flip = True,
 							vertical_flip = True,
 							rescale=1./255)
 
 		validation_datagen = ImageDataGenerator(
-							preprocessing_function=preprocess_input,
 							horizontal_flip = True,
 							vertical_flip = True,
 							rescale=1./255)
 
 		test_datagen = ImageDataGenerator(
-							preprocessing_function=preprocess_input,
 							horizontal_flip = True,
 							vertical_flip = True,
 							rescale=1./255)
 
 		self.train_generator = train_datagen.flow_from_directory(
 							train_data_dir,
-							color_mode='bgr',
+							color_mode='rgb',
 							target_size=(self.img_rows,self.img_cols),
 							batch_size=self.batch_size,
 							shuffle=True)
 
 		self.validation_generator = validation_datagen.flow_from_directory(
 							validation_data_dir,
-							color_mode='bgr',
+							color_mode='rgb',
 							target_size=(self.img_rows,self.img_cols),
 							batch_size=self.batch_size,
 							shuffle=True)
 
 		self.test_generator = test_datagen.flow_from_directory(
 							test_data_dir,
-							color_mode='bgr',
+							color_mode='rgb',
 							target_size=(self.img_rows,self.img_cols),
 							batch_size=self.batch_size,
 							shuffle=True)	
@@ -332,7 +329,11 @@ class Classifier():
 
 if __name__ == '__main__':
 	c = Classifier()
+	# c.initDataGenerator()
+	# img = next(c.train_generator)[0][0]
+	# plt.imshow(img)
+	# plt.show()
 	# c.getSampleDataset(3)
-	# c.loadWeights()
+	c.loadWeights()
 	# c.train()		
-	# c.test()
+	c.test()

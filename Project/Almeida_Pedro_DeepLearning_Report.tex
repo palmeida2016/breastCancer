@@ -93,10 +93,36 @@ Each of the 162 samples in the dataset have been partitioned to create 277,524 5
 \caption{Example of partitioned images found in dataset.}
 \end{figure}
 
-
-The images in each of the sections is then converted from RGB to BGR for training with each color channel zero-centered. Since the spatial orientation and location of the features in the image is not relevant to the classification, the data loader for the model will randomly shuffle the images and choose wether to reflect the image horizontally or vertically for each of the epochs, thus providing more variation to the dataset and hopefully reducing overfitting.
+The images in each of the sections is then converted from to RGB for training with each color channel zero-centered. Since the spatial orientation and location of the features in the image is not relevant to the classification, the data loader for the model will randomly shuffle the images and choose wether to reflect the image horizontally, vertically, or any combination for each of the epochs, thus providing more variation to the dataset and hopefully generalizing the model.
 
 \subsection{Training the Network}
+ The training of the model applies two important callbacks to maximize the efficiency of the model to converge to the lowest loss. The first of the methods applied is an adaptive learning rate as given in the Keras machine learning library. Using the built-in function \emph{ReduceLROnPlateau}, the model will monitor the change in validation loss between epochs and automatically reduce the learning rate by a factor of 10 if the change in validation loss is lower than the threshold \emph{min\_delta} (given as 0.0001) for 3 consecutive epochs.
+
+The CNN was trained over the course of 3 hours on a RTX-2070 GPU as shown in Fig. \ref{training_accuracy} and \ref{training_loss}.
+
+
+%The back propagation algorithm in a Neural Network computes the gradient of error of the network $E$, given as the difference between the expected and calculated values, and the network's weights $w_{i,j}$ as shown in Eq. \ref{learning_rate}.
+%
+%\begin{equation}
+%\Delta w_{i,j}=\frac{\delta E}{\delta w_{i,j}}
+%\label{learning_rate}
+%\end{equation}
+%
+%Using the change
+
+\begin{figure}
+\centering
+\includegraphics[width=0.4\textwidth]{figures/training_accuracy.png}
+\label{training_accuracy}
+\caption{Plot of training accuracy on train and validation data.}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.4\textwidth]{figures/training_loss.png}
+\label{training_loss}
+\caption{Plot of training loss on train and validation data.}
+\end{figure}
 
 \section{Results}
 

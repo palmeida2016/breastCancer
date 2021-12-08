@@ -9,15 +9,12 @@ from IPython.display import Image, display
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 
-class gradCam():
+class GradCAM():
 	def __init__(self, model):
 		self.img_width = 50
 		self.img_length = 50
 
 		self.model = model
-
-
-
 
 	def loadImage(self, path):
 		img = image.load_image(path, target_size(self.img_length, self.img_width))
@@ -28,4 +25,4 @@ class gradCam():
 		pass
 
 if __name__ == '__main__':
-	g = gradCam('a')
+	g = GradCAM('a')
