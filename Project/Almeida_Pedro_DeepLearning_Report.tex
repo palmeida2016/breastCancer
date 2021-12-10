@@ -7,6 +7,7 @@
 \usepackage{graphicx}
 \usepackage{textcomp}
 \usepackage{xcolor}
+\usepackage{caption}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \begin{document}
@@ -34,7 +35,7 @@ artificial neural network, machine learning, convolutional neural network
 \end{IEEEkeywords}
 
 \section{Introduction}
-Over the past 40 years \cite{Fukushima1980}, the field of object detection in machine learning has made massive strides in classification and detection capabilities. In addition to the expected improvements stemming from larger datasets, deeper models, and more powerful machines, much of the advancement owes to new and improved network architectures and novel algorithms. These techniques, often designed with specific datasets in mind, take advantage of the structure of the data to optimize the amount of information extracted per layer.The difficulty in designing the networks stem from the increasingly numerous design choices in determining hyper-parameters (width\footnote{Width -- The number of channels in a layer.}, filter sizes, strides, pooling layer parameters, dropout rates, \emph{etc.}) and the large selection of techniques in constructing the network architecture \cite{Krizhevsky2012, Szegedy2014, He2016, Huang2016, Simonyan2014, Hu2017, Xie2017, huang2019convolutional, Zhao2021}.
+Over the past 40 years \cite{Fukushima1980}, the field of object detection in machine learning has made massive strides in classification and detection capabilities. In addition to the expected improvements stemming from larger datasets, deeper models, and more powerful machines, much of the advancement owes to new and improved network architectures and novel algorithms. These techniques, often designed with specific datasets in mind, take advantage of the structure of the data to optimize the amount of information extracted per layer. The difficulty in designing the networks stem from the increasingly numerous design choices in determining hyper-parameters (the number of channels in a layer , filter sizes, strides, pooling layer parameters, dropout rates, \emph{etc.}) and the large selection of techniques in constructing the network architecture \cite{Krizhevsky2012, Szegedy2014, He2016, Huang2016, Simonyan2014, Hu2017, Xie2017, huang2019convolutional, Zhao2021}.
 
 The family of inception models \cite{Szegedy2014, Szegedy2015, Szegedy2016} tackled the problem by introducing an extra dimension cardinality: the number of independent paths within a layer. The central method employed involves splitting the input of a layer into lower-dimensional embeddings whereby each is transformed by a set of specialized filters with different kernel sizes, which are then concatenated. The \emph{split-transform-merge} method has been shown to approximate the representational power of large, dense layers, but at a substantially lower computational complexity. Despite showing good improvements in accuracy, the inception module suffers from a difficulty in tailoring filter numbers and sizes for different datasets/objectives; although the right combination can yield significant improvements to the accuracy, it is generally unclear as to how to adapt the Inception module architecture of a given problem, especially in combination with other complex transformations and hyper-parameters are involved.
 
@@ -45,9 +46,14 @@ The objective of the report is to explore the combination of some of these techn
 We propose a Convolutional Neural Network architecture 
 
 \section{Related Work}
+Prior to the introduction of Convolutional Neural Networks, the identification of malignant and benign regions in histopathology images largely relied on detection of histologic primitives -- markings for detection of breast cancer in histopathology images -- and feature extraction to characterize regions \cite{Doyle2008,Dundar2011,Niwas2011,Basavanhally2013}. In Doyle \emph{et al.} 2008 \cite{Doyle2008} the proliferation of nuclei is analyzed by detecting textural and graph features of histopathological data to determine the discriminating characteristics of tissue patterns in 3 different window sizes. Dundar \emph{et al.} 2011 \cite{Dundar2011} applies feature analysis of the perimeter for cell size, the ratio of major to minor axis in the best fitting ellipse for cell shape, and mean of the gray-level intensity for nucleoli appearance to train a Multiple Instance Learning (MIL) model to distinguish between positive and negative samples. In Niwas \emph{et al.} 2011 \cite{Niwas2011} the texture features of nuclei in biopsy images extracted using Log-Gabor Wavelets are used to classify breast carcinomas. In Basavanhally \emph{et al.} 2013 \cite{Basavanhally2013} the histopathology slides are converted into a new color space and processed with color-gradient based geodesic active contour to segment nuclear regions.
+
+Though the techniques described provided massive improvements to the manual analysis previously performed by pathologists, they rely heavily on the post-processing of images rather than computer vision. The result is a prediction model with a lesser understanding of the image structure and spatial positioning of features, which often leads to lower accuracy in predicitons. As such, the latest proposed solutions to the classification of breast cancer histopathology slides have applied Deep Convolutional Neural Networks and novel methods \cite{Dabeer2019,Mahmood2020,Gour2020,Wahab2020,Zainudin2020}. In Dabeer \emph{et al.} 2019 \cite{Dabeer2019} the histopathological slides are used to train a standard convolutional neural network with blocks constituting of a convolutional layer followed by a pooling layer to achieve an accuracy of 93.45\% on the BreakHis database.
+
 Since the introduction of Convolutional Neural Networks (CNN), the model architecture off CNNs has remained largely static: a series of convolutional layers followed by optional normalization and pooling layers and finally one or more dense layers reducing to the output. This standard architecture and its variations have reigned dominant in accurately classifying objects in small and large datasets alike, from MNIST, CIFAR, ImageNet, MS-COCO, SVHN, and others. For larger datasets especially, the latest novel idea has been the introduction of deeper networks with dropout layers to correct for overfitting.
 
 The tradeoff for adding more layers to a network is apparent in the time to train; as the model grows in size and increases the number of weights, the backwards propagation in updating the weights takes progressively longer, thus greatly adding to the required time to train. Furthermore, although the development of newer, more powerful machines and better parallelization and multi-processing techniques can somewhat mitigate the additional computational cost.
+
 \section{Methods}
 \subsection{ResNet Layer}
 The first CNN modification applied in the model architecture employs residual learning within the convolution layers. As described by He \textit{et al.} \cite{He2016}, let us consider a residual layer within a neural network defined as:
@@ -64,64 +70,54 @@ The proposed architecture implements the ResNet layers as proposed by He \emph{e
 \begin{figure}
 \centering
 \includegraphics[width=0.3\textwidth]{figures/ResNet_Model.png}
-\label{ResNet_Layer_Model}
 \caption{Model of ResNet Layer with 4 Convolutions.}
+\label{ResNet_Layer_Model}
 \end{figure}
 
 \subsection{Inception Module Layer}
 The second CNN modification applied in the network architecture is the use of the Inception Module \cite{Szegedy2014} designed by Szegedy \emph{et al.} Unlike the ResNet Layer, the inception module bypasses the deepening of neural networks for better performance through optimal local sparse structures. The structure of the module is founded on the parallelization of inputs into paths with convolutional layers of different kernel sizes.
 
-In earlier\footnote{Earlier -- Refers to layers closer to the input image.} layers, one can expect the output of convolutional filters to concentrate in local regions, which could be covered by a layer of 1x1 convolutions in the next layer. However, over larger patches, the outputs of the convolutions will lead to fewer, more spread out clusters that cannot be easily covered by convoultuions. As such, in order to avoid the patch-alignment issues, Szegedy \emph{et al.} proposes restricting the kernel size to 1$\times$1, 3$\times$3, and 5$\times$5. The final addition to the inception module is the addition of 1$\times$1 convolutions before the larger kernel size convolutional layers. The reason behind the choice is that, especially in the originally proposed architecture where inception modules are stacked to create the network, the numbre of 5$\times$5 convolutions can be prohibitely expensive. As such, the merging of output layers in the module would inevitably lead to exponential growth, thus adding immense computational complexity to the model. The proposed 1$\times$1 convolutions before the 3$\times$3 and 5$\times$5 would compute the reductions, thus preveting that growth. 
+In layers closer to the input image, one can expect the output of convolutional filters to concentrate in local regions, which could be covered by a layer of 1x1 convolutions in the next layer. However, over larger patches, the outputs of the convolutions will lead to fewer, more spread out clusters that cannot be easily covered by convoultuions. As such, in order to avoid the patch-alignment issues, Szegedy \emph{et al.} proposes restricting the kernel size to 1$\times$1, 3$\times$3, and 5$\times$5. The final addition to the inception module is the addition of 1$\times$1 convolutions before the larger kernel size convolutional layers. The reason behind the choice is that, especially in the originally proposed architecture where inception modules are stacked to create the network, the numbre of 5$\times$5 convolutions can be prohibitely expensive. As such, the merging of output layers in the module would inevitably lead to exponential growth, thus adding immense computational complexity to the model. The proposed 1$\times$1 convolutions before the 3$\times$3 and 5$\times$5 would compute the reductions, thus preveting that growth. 
 
 \begin{figure}
 \centering
 \includegraphics[width=0.4\textwidth]{figures/Inception_Model.png}
-\label{Inception_Model}
 \caption{Model of Inception Layer with 4 parallel paths.}
+\label{Inception_Model}
 \end{figure}
 
 The proposed architecture implements the Inception Module layers as proposed by Szegedy {et al.} with 8, 32, 64, and 16 filters as shown in Fig. \ref{Inception_Model}. 
 
 \subsection{Network Architecture}
-\subsection{Data Augmentation}
-Each of the 162 samples in the dataset have been partitioned to create 277,524 50x50-pixel patches, of which 198,738 are IDC negative and 78,786 are IDC positive. In preparation for the training cycle, the samples were shuffled and distributed into training, validation, and testing sets constituting 60\%, 20\%, and 20\% of the samples respectively. To account for the imbalance in negative and positive samples, the distribution executed ensures the ratio of negative to positive samples is consistent across all three datasets.
+\subsection{Dataset and Data Augmentation}
+The dataset consists of the data compiled by Cruz-Roa \emph{et al.} in 2014 \cite{Cruz-Roa2014}. The was collected during visual analysis of tissue slides stained with hematoxylin and eosin (H\&E) by pathologists. The dataset contains the sampling images of 162 different patieents identified by professionals as either benign or malignant. Each of the 162 samples in the dataset have been partitioned to create 277,524 50x50-pixel patches, of which 198,738 are IDC negative and 78,786 are IDC positive. In preparation for the training cycle, the samples were shuffled and distributed into training, validation, and testing sets constituting 60\%, 20\%, and 20\% of the total number respectively. To account for the imbalance in negative and positive samples, the distribution  ensures the ratio of negative to positive samples is consistent across all three sections of the dataset.
 
 \begin{figure}
 \centering
 \includegraphics[width=0.4\textwidth]{figures/dataset_example.png}
-\label{dataset_example}
 \caption{Example of partitioned images found in dataset.}
+\label{dataset_example}
 \end{figure}
 
 The images in each of the sections is then converted from to RGB for training with each color channel zero-centered. Since the spatial orientation and location of the features in the image is not relevant to the classification, the data loader for the model will randomly shuffle the images and choose wether to reflect the image horizontally, vertically, or any combination for each of the epochs, thus providing more variation to the dataset and hopefully generalizing the model.
 
 \subsection{Training the Network}
- The training of the model applies two important callbacks to maximize the efficiency of the model to converge to the lowest loss. The first of the methods applied is an adaptive learning rate as given in the Keras machine learning library. Using the built-in function \emph{ReduceLROnPlateau}, the model will monitor the change in validation loss between epochs and automatically reduce the learning rate by a factor of 10 if the change in validation loss is lower than the threshold \emph{min\_delta} (given as 0.0001) for 3 consecutive epochs.
+ The training of the model applies two important callbacks to maximize the efficiency of the model to converge to the lowest loss. The first of the methods applied is an adaptive learning rate as given in the Keras machine learning library. Using the built-in function \emph{ReduceLROnPlateau}, the model will monitor the change in validation loss between epochs and automatically reduce the learning rate by a factor of 10 if the change in validation loss is lower than the threshold \emph{min\_delta} (given as 0.0001) for 3 consecutive epochs. The second callback serves to prevent the model from continuing training if its validation loss does not decrease for 10 consecutive epochs, which is implemented with the Keras \emph{EarlyStopping} class.
 
 The CNN was trained over the course of 3 hours on a RTX-2070 GPU as shown in Fig. \ref{training_accuracy} and \ref{training_loss}.
-
-
-%The back propagation algorithm in a Neural Network computes the gradient of error of the network $E$, given as the difference between the expected and calculated values, and the network's weights $w_{i,j}$ as shown in Eq. \ref{learning_rate}.
-%
-%\begin{equation}
-%\Delta w_{i,j}=\frac{\delta E}{\delta w_{i,j}}
-%\label{learning_rate}
-%\end{equation}
-%
-%Using the change
 
 \begin{figure}
 \centering
 \includegraphics[width=0.4\textwidth]{figures/training_accuracy.png}
-\label{training_accuracy}
 \caption{Plot of training accuracy on train and validation data.}
+\label{training_accuracy}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[width=0.4\textwidth]{figures/training_loss.png}
-\label{training_loss}
 \caption{Plot of training loss on train and validation data.}
+\label{training_loss}
 \end{figure}
 
 \section{Results}

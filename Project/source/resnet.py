@@ -322,7 +322,6 @@ class Classifier():
 		plt.show()
 
 
-
 	def predict(self):
 		pass
 		
